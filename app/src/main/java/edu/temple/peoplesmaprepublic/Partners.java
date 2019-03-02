@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class Partners  implements Comparable, Serializable {
 
     String user,lat,lng;
+    LatLng latLng;
 
 
     public Partners(String u, String lt, String lg)
@@ -18,7 +19,6 @@ public class Partners  implements Comparable, Serializable {
         user=u;
         lat=lt;
         lng=lg;
-
     }
 
     public String getUser()
@@ -35,15 +35,30 @@ public class Partners  implements Comparable, Serializable {
     {
         return lng;
     }
+
     public double latNum(){
         double latN=Double.parseDouble(lat);
         return latN;
     }
+
     public double lngNum(){
         double lngN=Double.parseDouble(lng);
         return lngN;
     }
 
+    public LatLng getLatLng(){
+        double lat2=Double.parseDouble(lat);
+        double lng2=Double.parseDouble(lng);
+        latLng=new LatLng(lat2,lng2);
+        return latLng;
+    }
+
+    public String getLatLngString(){
+        String lat2 = lat.substring(0, Math.min(lat.length(), 5));
+        String lng2 = lng.substring(0, Math.min(lng.length(), 5));
+        String returnString=lat2+","+lng2;
+        return returnString;
+    }
 
     @Override
     public int compareTo(@NonNull Object o) {

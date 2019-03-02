@@ -27,7 +27,7 @@ public class UserFragment extends Fragment {
     //RecyclerView.LayoutManager layoutManager;
     //ArrayList<Partners> parts=new ArrayList<Partners>();
     ArrayList<Partners> partnerList=new ArrayList<Partners>();
-    ArrayList<Partners> tempPartnerList=new ArrayList<Partners>();
+    //ArrayList<Partners> tempPartnerList=new ArrayList<Partners>();
     Button button;
     Partners pat=new Partners("steve","12","12");
     int i;
@@ -50,16 +50,17 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setRetainInstance(true);
         //Bundle extras=this.getArguments().getBundle("partnerList");
         //tempPartnerList=(ArrayList<Partners>)getArguments().getSerializable("partnerList");
         partnerList=(ArrayList<Partners>)getArguments().getSerializable("partnerList");
         Collections.sort(partnerList);
+
         //partnerList.add(pat);
-       /* for(int i=0;i<tempPartnerList.size();i++){
-            tempPartnerList.add(partnerList.get(i));
+        /*for(int i=0;i<tempPartnerList.size();i++){
+            partnerList.add(tempPartnerList.get(i));
         }*/
-        Toast.makeText(getContext(),String.valueOf(partnerList.size()), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(),String.valueOf(partnerList.size()), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -71,7 +72,6 @@ public class UserFragment extends Fragment {
         partnerRecyclerView=v2.findViewById(R.id.recycleView);
         //layoutManager=new LinearLayoutManager(getActivity());
         partnerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //partnerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter=new PartnerAdapter(partnerList);
         partnerRecyclerView.setAdapter(mAdapter);
 

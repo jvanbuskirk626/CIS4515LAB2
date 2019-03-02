@@ -18,6 +18,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <uses-library
@@ -29,6 +30,7 @@
             android:value="AIzaSyD06J_PYnqrLXUVRM_gviwNvK6W-PdEa50" />
 
         <activity android:name=".ActualMain" />
+        <activity android:name=".GetUserName"></activity>
     </application>
 
 </manifest>

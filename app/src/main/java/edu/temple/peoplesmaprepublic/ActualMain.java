@@ -57,7 +57,8 @@ public class ActualMain extends AppCompatActivity{
         setContentView(R.layout.activity_actual_main);
 
         Intent intent = getIntent();
-        String userName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        //String userName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String userName="";
 
         //Toast.makeText(this,String.valueOf(partners.size()), Toast.LENGTH_LONG).show();
 

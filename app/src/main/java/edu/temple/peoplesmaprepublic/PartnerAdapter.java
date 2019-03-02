@@ -18,11 +18,13 @@ public class PartnerAdapter extends  RecyclerView.Adapter<PartnerAdapter.ViewHol
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView partTextView;
+        public TextView locationTextView;
 
         public ViewHolder(View itemView){
             super(itemView);
 
             partTextView=itemView.findViewById(R.id.firstName);
+            locationTextView=itemView.findViewById(R.id.locationBox);
         }
     }
 
@@ -45,8 +47,11 @@ public class PartnerAdapter extends  RecyclerView.Adapter<PartnerAdapter.ViewHol
     public void onBindViewHolder(PartnerAdapter.ViewHolder viewHolder, int position){
         Partners p=partList.get(position);
 
-        TextView textView=viewHolder.partTextView;
-        textView.setText(p.getUser());
+        TextView userView=viewHolder.partTextView;
+        userView.setText(p.getUser());
+
+        TextView locView=viewHolder.locationTextView;
+        locView.setText(p.getLatLngString());
     }
 
     public int getItemCount(){
