@@ -28,6 +28,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,12 +43,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     Marker lastMarker;
     View mView;
     LatLng latLng;
+    ArrayList<LatLng> markers;
+    ArrayList<Partners> partnerList=new ArrayList<Partners>();
 
 
     public MapFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //partnerList=(ArrayList<Partners>)getArguments().getSerializable("partnerList");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
