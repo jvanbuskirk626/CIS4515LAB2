@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -43,8 +44,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     Marker lastMarker;
     View mView;
     LatLng latLng;
-    ArrayList<LatLng> markers;
+    ArrayList<LatLng> markers=new ArrayList<LatLng>();
     ArrayList<Partners> partnerList=new ArrayList<Partners>();
+    MarkerOptions options=new MarkerOptions();
+    Button update;
 
 
     public MapFragment() {
@@ -54,7 +57,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //partnerList=(ArrayList<Partners>)getArguments().getSerializable("partnerList");
+        partnerList=(ArrayList<Partners>)getArguments().getSerializable("partnerList");
+
+
     }
 
     @Override
@@ -62,6 +67,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView= inflater.inflate(R.layout.fragment_map, container, false);
+        update=mView.findViewById(R.id.updatePins);
+        /*for(int i=0;i<markers.size();i++){
+            options.position(markers.get(i));
+            options.title(partnerList.get(i).getUser());
+            map.addMarker(options);
+        }*/
+
+        //Toast.makeText(getContext(),String.valueOf(markers.size()), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(),"map frag", Toast.LENGTH_LONG).show();
+
         return mView;
     }
 
@@ -92,9 +107,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     lastMarker=map.addMarker(markerOptions);
                 }
 
-                CameraUpdate cameraUpdate=CameraUpdateFactory
-                        .newLatLngZoom(lastMarker.getPosition(), 16);
-                map.animateCamera(cameraUpdate);
+
+
+                //CameraUpdate cameraUpdate=CameraUpdateFactory.newLatLngZoom(lastMarker.getPosition(), 16);
+                //map.animateCamera(cameraUpdate);
             }
 
             @Override
@@ -112,6 +128,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             }
         };
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i=0;i<partnerList.size();i++){
+                    markers.add(partnerList.get(i).getLatLng());
+                }
+                for(int i=0;i<markers.size();i++){
+                    options.position(markers.get(i));
+                    options.title(partnerList.get(i).getUser());
+                    map.addMarker(options);
+                }
+                //Toast.makeText(getContext(),String.valueOf(partnerList.size()), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override

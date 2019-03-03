@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity{
     String lng;
     ArrayList <Partners> partners;
     String userName;
+    Button swap;
+    Boolean mapDisplayed;
     //RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
     @Override
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        swap=findViewById(R.id.swapFrag);
+
+        //Determine if user name needs to be entered. This is to prevent user name being asked everytime the screen is rotated
         if(savedInstanceState!=null)
             userName=(String)savedInstanceState.get("userName");
         else{
@@ -97,25 +103,60 @@ public class MainActivity extends AppCompatActivity{
             }
         };
 
+
         //acquire all user info
         uploadUser(userName);
-        partners=getPartners();
+        partners = getPartners();
 
         //determine orientation
-        singlePane=findViewById(R.id.container2)==null;
+        singlePane = findViewById(R.id.container2) == null;
 
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putSerializable("partnerList", partners);
+        startFragments(bundle);
 
-        mapFragment=new MapFragment();
-        uf=new UserFragment();
+        swap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mapDisplayed){
+                    fm.beginTransaction().replace(R.id.containerOne, mapFragment).commit();
+                    mapDisplayed=true;
+                }
+                else
+                    fm.beginTransaction().replace(R.id.containerOne, uf).commit();
+
+            }
+        });
+
+        /*mapFragment = new MapFragment();
+        mapFragment.setArguments(bundle);
+        uf = new UserFragment();
         uf.setArguments(bundle);
 
-        fm=getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.containerOne, uf).commit();
+        fm = getSupportFragmentManager();
+        //fm.beginTransaction().replace(R.id.containerOne, uf).commit();
+        fm.beginTransaction().replace(R.id.containerOne, mapFragment).commit();
 
-        if(!singlePane)
+        if (!singlePane)
+            fm.beginTransaction().replace(R.id.container2, mapFragment).commit();*/
+
+    }
+
+    public void startFragments(Bundle b){
+
+        mapFragment = new MapFragment();
+        mapFragment.setArguments(b);
+        uf = new UserFragment();
+        uf.setArguments(b);
+
+        fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.containerOne, uf).commit();
+        mapDisplayed=false;
+        //fm.beginTransaction().replace(R.id.containerOne, mapFragment).commit();
+
+        if (!singlePane)
             fm.beginTransaction().replace(R.id.container2, mapFragment).commit();
+
     }
 
     public void uploadUser(String user2){

@@ -68,23 +68,23 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v2= inflater.inflate(R.layout.fragment_user, container, false);
-
+        //Toast.makeText(getContext(),String.valueOf(partnerList.size()), Toast.LENGTH_LONG).show();
         partnerRecyclerView=v2.findViewById(R.id.recycleView);
         //layoutManager=new LinearLayoutManager(getActivity());
         partnerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter=new PartnerAdapter(partnerList);
         partnerRecyclerView.setAdapter(mAdapter);
 
-        button=v2.findViewById(R.id.getPartnersButton);
+        //button=v2.findViewById(R.id.getPartnersButton);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getContext(),String.valueOf(tempPartnerList.size()), Toast.LENGTH_LONG).show();
                 Toast.makeText(getContext(),partnerList.get(i).getUser(), Toast.LENGTH_LONG).show();
                 i++;
             }
-        });
+        });*/
 
         return v2;
     }
